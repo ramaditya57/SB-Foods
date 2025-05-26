@@ -109,7 +109,7 @@ const Admin = () => {
     return promoteList.some((id) => !originalPromoteList.includes(id));
   };
 
-  const totalUsers = users.filter((user) => user.usertype !== 'admin').length;
+  const totalUsers = Array.isArray(users)? users.filter((user) => user.usertype !== 'admin').length: 0;
 
   return (
     <div className="admin-page">
