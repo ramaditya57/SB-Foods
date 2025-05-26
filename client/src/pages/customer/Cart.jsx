@@ -31,8 +31,11 @@ const Cart = () => {
   }, [userId]);
 
   const calculateTotalPrice = useCallback(() => {
-    const price = cart.reduce((sum, product) => sum + (product.price * product.quantity), 0);
-    const discount = cart.reduce((sum, product) => sum + ((product.price * product.discount) / 100) * product.quantity, 0);
+    const price = cart.reduce((sum, product) => sum + product.price * product.quantity, 0);
+    const discount = cart.reduce(
+      (sum, product) => sum + ((product.price * product.discount) / 100) * product.quantity,
+      0
+    );
     setTotalPrice(price);
     setTotalDiscount(discount);
     setDeliveryCharges(price > 1000 || cart.length === 0 ? 0 : 50);
@@ -45,6 +48,11 @@ const Cart = () => {
   useEffect(() => {
     if (cart.length > 0) {
       calculateTotalPrice();
+    } else {
+      // reset totals if cart is empty
+      setTotalPrice(0);
+      setTotalDiscount(0);
+      setDeliveryCharges(0);
     }
   }, [cart, calculateTotalPrice]);
 
@@ -75,6 +83,7 @@ const Cart = () => {
   };
 
   const updateQuantity = async (id, newQuantity) => {
+    if (newQuantity < 1) return; // Prevent invalid quantity
     try {
       await axios.put('http://localhost:6001/update-cart-quantity', { id, quantity: newQuantity });
       fetchCart();
@@ -84,7 +93,15 @@ const Cart = () => {
   };
 
   const placeOrder = async () => {
-    if (cart.length === 0 || !name || !mobile || !email || !address || !pincode || !paymentMethod) {
+    if (
+      cart.length === 0 ||
+      !name.trim() ||
+      !mobile.trim() ||
+      !email.trim() ||
+      !address.trim() ||
+      !pincode.trim() ||
+      !paymentMethod
+    ) {
       alert('Please complete all fields before placing an order.');
       return;
     }
@@ -98,11 +115,11 @@ const Cart = () => {
         address,
         pincode,
         paymentMethod,
-        orderDate: new Date()
+        orderDate: new Date(),
       });
 
       alert('Order placed successfully!');
-      document.querySelector('.btn-close').click(); // Close modal
+      document.querySelector('.btn-close')?.click(); // Close modal safely
       fetchCart();
       fetchCartCount();
       navigate('/profile');
@@ -142,7 +159,9 @@ const Cart = () => {
                       <s> ₹{item.price}</s>
                     </h6>
                   </div>
-                  <button className='btn btn-outline-danger' onClick={() => removeItem(item._id)}>Remove</button>
+                  <button className="btn btn-outline-danger" onClick={() => removeItem(item._id)}>
+                    Remove
+                  </button>
                 </div>
               </div>
             );
@@ -152,20 +171,41 @@ const Cart = () => {
 
       <div className="cartPriceBody">
         <h4>Price Details</h4>
-        <span><b>Total MRP: </b> <p>₹ {totalPrice.toFixed(2)}</p></span>
-        <span><b>Discount on MRP: </b> <p style={{ color: "rgb(7, 156, 106)" }}>- ₹ {totalDiscount.toFixed(2)}</p></span>
-        <span><b>Delivery Charges: </b> <p style={{ color: "red" }}>+ ₹ {deliveryCharges}</p></span>
+        <span>
+          <b>Total MRP: </b> <p>₹ {totalPrice.toFixed(2)}</p>
+        </span>
+        <span>
+          <b>Discount on MRP: </b>{' '}
+          <p style={{ color: 'rgb(7, 156, 106)' }}>- ₹ {totalDiscount.toFixed(2)}</p>
+        </span>
+        <span>
+          <b>Delivery Charges: </b> <p style={{ color: 'red' }}>+ ₹ {deliveryCharges}</p>
+        </span>
         <hr />
-        <h5><b>Final Price: </b> ₹ {(totalPrice - totalDiscount + deliveryCharges).toFixed(2)}</h5>
-        <button data-bs-toggle="modal" data-bs-target="#staticBackdrop">Place order</button>
+        <h5>
+          <b>Final Price: </b> ₹ {(totalPrice - totalDiscount + deliveryCharges).toFixed(2)}
+        </h5>
+        <button data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+          Place order
+        </button>
       </div>
 
       {/* Checkout Modal */}
-      <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div
+        className="modal fade"
+        id="staticBackdrop"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabIndex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+      >
         <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title" id="staticBackdropLabel">Checkout</h5>
+              <h5 className="modal-title" id="staticBackdropLabel">
+                Checkout
+              </h5>
               <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div className="modal-body">
@@ -173,30 +213,60 @@ const Cart = () => {
                 <h4>Checkout details</h4>
 
                 <div className="form-floating mb-3">
-                  <input type="text" className="form-control" id="floatingInput1" value={name} onChange={(e) => setName(e.target.value)} />
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="floatingInput1"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                  />
                   <label htmlFor="floatingInput1">Name</label>
                 </div>
 
                 <section>
                   <div className="form-floating mb-3 span-child-2">
-                    <input type="text" className="form-control" id="floatingInput2" value={mobile} onChange={(e) => setMobile(e.target.value)} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput2"
+                      value={mobile}
+                      onChange={(e) => setMobile(e.target.value)}
+                    />
                     <label htmlFor="floatingInput2">Mobile</label>
                   </div>
 
                   <div className="form-floating mb-3 span-child-1">
-                    <input type="text" className="form-control" id="floatingInput3" value={email} onChange={(e) => setEmail(e.target.value)} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput3"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                    />
                     <label htmlFor="floatingInput3">Email</label>
                   </div>
                 </section>
 
                 <section>
                   <div className="form-floating mb-3 span-child-1">
-                    <input type="text" className="form-control" id="floatingInput6" value={address} onChange={(e) => setAddress(e.target.value)} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput6"
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
                     <label htmlFor="floatingInput6">Address</label>
                   </div>
 
                   <div className="form-floating mb-3 span-child-2">
-                    <input type="text" className="form-control" id="floatingInput7" value={pincode} onChange={(e) => setPincode(e.target.value)} />
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingInput7"
+                      value={pincode}
+                      onChange={(e) => setPincode(e.target.value)}
+                    />
                     <label htmlFor="floatingInput7">Pincode</label>
                   </div>
                 </section>
@@ -205,7 +275,12 @@ const Cart = () => {
               <div className="checkout-payment-method">
                 <h4>Payment method</h4>
                 <div className="form-floating mb-3">
-                  <select className="form-select form-select-md mb-3" id="floatingInput8" value={paymentMethod} onChange={(e) => setPaymentMethod(e.target.value)}>
+                  <select
+                    className="form-select form-select-md mb-3"
+                    id="floatingInput8"
+                    value={paymentMethod}
+                    onChange={(e) => setPaymentMethod(e.target.value)}
+                  >
                     <option value="">Choose payment method</option>
                     <option value="netbanking">Netbanking</option>
                     <option value="card">Card Payments</option>
@@ -218,8 +293,12 @@ const Cart = () => {
             </div>
 
             <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-              <button type="button" className="btn btn-primary" onClick={placeOrder}>Order</button>
+              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">
+                Cancel
+              </button>
+              <button type="button" className="btn btn-primary" onClick={placeOrder}>
+                Order
+              </button>
             </div>
           </div>
         </div>
