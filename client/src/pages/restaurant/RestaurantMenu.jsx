@@ -32,11 +32,11 @@ const RestaurantMenu = () => {
 
   const fetchMenuCategories = async () => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-menu-categories');
+      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-menu-categories');
       setMenuCategories(response.data);
     } catch (err) {
       try {
-        const response = await axios.get('http://localhost:6001/fetch-categories');
+        const response = await axios.get('https://sb-foods-1.onrender.com/fetch-categories');
         setMenuCategories(response.data);
       } catch (secondErr) {
         console.log("Could not fetch menu categories, will extract from items:", secondErr);
@@ -46,7 +46,7 @@ const RestaurantMenu = () => {
 
   const fetchCuisines = async () => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-cuisines');
+      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
       setCuisines(response.data);
     } catch (err) {
       console.log("Could not fetch cuisines, will extract from items:", err);
@@ -55,7 +55,7 @@ const RestaurantMenu = () => {
 
   const fetchRestaurant = async () => {
     try {
-      const response = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+      const response = await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant-details/${userId}`);
       setRestaurant(response.data);
     } catch (err) {
       console.log("Could not fetch restaurant details:", err);
@@ -64,7 +64,7 @@ const RestaurantMenu = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get(`http://localhost:6001/fetch-items`);
+      const response = await axios.get(`https://sb-foods-1.onrender.com/fetch-items`);
       const allItems = response.data;
       setItems(allItems);
       setVisibleItems(allItems);

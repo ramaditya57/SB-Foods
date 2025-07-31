@@ -21,7 +21,7 @@ const RestaurantOrders = () => {
     setLoading(true);
     try {
       // First get the restaurant details for this user
-      const restaurantResponse = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+      const restaurantResponse = await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant-details/${userId}`);
       const restaurantData = restaurantResponse.data;
       setRestaurant(restaurantData);
       
@@ -32,7 +32,7 @@ const RestaurantOrders = () => {
       }
       
       // Now fetch all orders
-      const ordersResponse = await axios.get('http://localhost:6001/fetch-orders');
+      const ordersResponse = await axios.get('https://sb-foods-1.onrender.com/fetch-orders');
       
       // Filter orders by restaurant name from our restaurant data
       const filteredOrders = ordersResponse.data.filter(order => 
@@ -57,7 +57,7 @@ const RestaurantOrders = () => {
 
   const cancelOrder = async(id) => {
     try {
-      await axios.put('http://localhost:6001/cancel-order', {id});
+      await axios.put('https://sb-foods-1.onrender.com/cancel-order', {id});
       // Instead of alert, update the UI directly
       setOrders(orders.map(order => 
         order._id === id ? {...order, orderStatus: 'cancelled'} : order
@@ -78,7 +78,7 @@ const RestaurantOrders = () => {
     }
     
     try {
-      await axios.put('http://localhost:6001/update-order-status', {
+      await axios.put('https://sb-foods-1.onrender.com/update-order-status', {
         id, 
         updateStatus: updateStatus[id]
       });

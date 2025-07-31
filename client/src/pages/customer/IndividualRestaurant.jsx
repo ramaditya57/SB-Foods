@@ -24,7 +24,7 @@ const IndividualRestaurant = () => {
   }, []);
 
   const fetchRestaurants = async() => {
-    await axios.get(`http://localhost:6001/fetch-restaurant/${id}`).then(
+    await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant/${id}`).then(
       (response) => {
         setRestaurant(response.data);
         console.log(response.data);
@@ -38,7 +38,7 @@ const IndividualRestaurant = () => {
   const fetchMenuCategories = async() => {
     try {
       // Check if there's a specific endpoint for menu categories
-      const response = await axios.get('http://localhost:6001/fetch-menu-categories');
+      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-menu-categories');
       setMenuCategories(response.data);
     } catch (err) {
       console.log("Error fetching menu categories, will extract from items:", err);
@@ -49,7 +49,7 @@ const IndividualRestaurant = () => {
   // Separate function to fetch cuisines
   const fetchCuisines = async() => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-cuisines');
+      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
       setCuisines(response.data);
     } catch (err) {
       console.log("Error fetching cuisines, will extract from items:", err);
@@ -58,7 +58,7 @@ const IndividualRestaurant = () => {
   }
 
   const fetchItems = async() => {
-    await axios.get(`http://localhost:6001/fetch-items`).then(
+    await axios.get(`https://sb-foods-1.onrender.com/fetch-items`).then(
       (response) => {
         const allItems = response.data;
         setItems(allItems);
@@ -173,7 +173,7 @@ const IndividualRestaurant = () => {
   const [quantity, setQuantity] = useState(0);
 
   const handleAddToCart = async(foodItemId, foodItemName, restaurantId, foodItemImg, price, discount) => {
-    await axios.post('http://localhost:6001/add-to-cart', {
+    await axios.post('https://sb-foods-1.onrender.com/add-to-cart', {
       userId, foodItemId, foodItemName, restaurantId, foodItemImg, price, discount, quantity
     }).then((response) => {
       alert("Product added to cart!");

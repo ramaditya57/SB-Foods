@@ -30,7 +30,7 @@ const RestaurantHome = () => {
       setIsLoading(true);
       setError(null);
       try {
-        const response = await axios.get(`http://localhost:6001/fetch-user-details/${userId}`);
+        const response = await axios.get(`https://sb-foods-1.onrender.com/fetch-user-details/${userId}`);
         setRestaurant(response.data || { approval: 'error' });
       } catch (err) {
         console.error("Error fetching user details:", err);
@@ -51,7 +51,7 @@ const RestaurantHome = () => {
         return;
       }
       try {
-        const response = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+        const response = await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant-details/${userId}`);
         setRestaurantData(response.data);
       } catch (err) {
         console.error("Error fetching restaurant details:", err);
@@ -77,8 +77,8 @@ const RestaurantHome = () => {
       try {
         // Fetch in parallel
         const [itemsResponse, ordersResponse] = await Promise.all([
-          axios.get('http://localhost:6001/fetch-items'),
-          axios.get('http://localhost:6001/fetch-orders')
+          axios.get('https://sb-foods-1.onrender.com/fetch-items'),
+          axios.get('https://sb-foods-1.onrender.com/fetch-orders')
         ]);
 
         const items = itemsResponse.data || [];

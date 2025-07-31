@@ -24,7 +24,7 @@ const AllUsers = () => {
 
   const fetchUsers = async () => {
     try {
-      const response = await axios.get('http://localhost:6001/fetch-users');
+      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-users');
       setUsers(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -38,7 +38,7 @@ const AllUsers = () => {
       setLoadingUserId(userId);
       try {
         console.log("Sending delete request for user ID:", userId);
-        const response = await axios.put('http://localhost:6001/delete-user', { id: userId });
+        const response = await axios.put('https://sb-foods-1.onrender.com/delete-user', { id: userId });
         console.log("Delete response:", response.data);
         setSuccessMessage('User deleted successfully');
         fetchUsers(); // Refresh the list
@@ -69,7 +69,7 @@ const AllUsers = () => {
     
     try {
       // Using the existing /register endpoint
-      const response = await axios.post('http://localhost:6001/register', formData);
+      const response = await axios.post('https://sb-foods-1.onrender.com/register', formData);
       console.log("User registration response:", response.data);
       setSuccessMessage('User added successfully');
       setFormData({

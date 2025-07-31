@@ -19,7 +19,7 @@ const Admin = () => {
   }, [])
 
   const fetchUsers = async() =>{
-    await axios.get('http://localhost:6001/fetch-users').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-users').then(
       (response)=>{
         setUsers(response.data);
         
@@ -28,7 +28,7 @@ const Admin = () => {
   }
 
   const fetchRestaurants = async() =>{
-    await axios.get('http://localhost:6001/fetch-restaurants').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-restaurants').then(
       (response)=>{
         setRestaurants(response.data);
         
@@ -37,7 +37,7 @@ const Admin = () => {
   }
 
   const fetchOrders = async() =>{
-    await axios.get('http://localhost:6001/fetch-orders').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-orders').then(
       (response)=>{
         setOrdersCount(response.data.length);
         
@@ -46,7 +46,7 @@ const Admin = () => {
   }
 
   const approveUser = async(id) =>{
-    await axios.post('http://localhost:6001/approve-user', {id}).then(
+    await axios.post('https://sb-foods-1.onrender.com/approve-user', {id}).then(
       (response)=>{
         alert('Restaurant approved!');
         fetchUsers();
@@ -55,7 +55,7 @@ const Admin = () => {
   }
 
   const rejectUser = async(id) =>{
-    await axios.post('http://localhost:6001/reject-user', {id}).then(
+    await axios.post('https://sb-foods-1.onrender.com/reject-user', {id}).then(
       (response)=>{
         alert('Restaurant Rejected!');
         fetchUsers();
@@ -75,7 +75,7 @@ const Admin = () => {
   }
 
   const handlePromoteUpdate = async() =>{
-    await axios.post('http://localhost:6001/update-promote-list', {promoteList}).then(
+    await axios.post('https://sb-foods-1.onrender.com/update-promote-list', {promoteList}).then(
       (response) =>{
         alert('promote list updated!!')
       }
@@ -83,7 +83,7 @@ const Admin = () => {
   }
 
   const fetchPromotions = async () =>{
-    await axios.get('http://localhost:6001/fetch-promoted-list').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-promoted-list').then(
       (response)=>{
         setPromoteList(response.data);
       }

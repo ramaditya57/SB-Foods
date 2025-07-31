@@ -21,7 +21,7 @@ const Cart = () => {
   }, [])
 
 const fetchCart = async() =>{
-    await axios.get('http://localhost:6001/fetch-cart').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-cart').then(
       (response)=>{
         setCart(response.data.filter(item=> item.userId === userId));
       }
@@ -30,7 +30,7 @@ const fetchCart = async() =>{
 
 
   const removeItem = async(id) =>{
-    await axios.put('http://localhost:6001/remove-item', {id}).then(
+    await axios.put('https://sb-foods-1.onrender.com/remove-item', {id}).then(
       (response)=>{
         fetchCart();
         fetchCartCount();
@@ -71,7 +71,7 @@ const fetchCart = async() =>{
 
   const placeOrder = async() =>{
     if(cart.length > 0){
-        await axios.post('http://localhost:6001/place-cart-order', {userId, name, mobile, email, address, pincode, paymentMethod, orderDate: new Date()}).then(
+        await axios.post('https://sb-foods-1.onrender.com/place-cart-order', {userId, name, mobile, email, address, pincode, paymentMethod, orderDate: new Date()}).then(
           (response)=>{
             alert('Order placed!!');
             setName('');

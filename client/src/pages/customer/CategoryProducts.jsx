@@ -19,14 +19,14 @@ const CategoryProducts = () => {
     setLoading(true);
     try {
       // First get all food items with the specified menu category
-      const foodItemsResponse = await axios.get(`http://localhost:6001/fetch-food-items-by-menu-category/${category}`);
+      const foodItemsResponse = await axios.get(`https://sb-foods-1.onrender.com/fetch-food-items-by-menu-category/${category}`);
       
       if (foodItemsResponse.data && foodItemsResponse.data.length > 0) {
         // Extract unique restaurant IDs from the food items
         const restaurantIds = [...new Set(foodItemsResponse.data.map(item => item.restaurantId))];
         
         // Then fetch the restaurant details for these IDs
-        const restaurantsResponse = await axios.get('http://localhost:6001/fetch-restaurants');
+        const restaurantsResponse = await axios.get('https://sb-foods-1.onrender.com/fetch-restaurants');
         
         // Filter restaurants based on the extracted IDs
         const filteredRestaurants = restaurantsResponse.data.filter(restaurant => 

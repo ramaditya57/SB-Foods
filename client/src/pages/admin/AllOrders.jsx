@@ -14,7 +14,7 @@ const AllOrders = () => {
   },[])
 
   const fetchOrders = async() =>{
-    await axios.get('http://localhost:6001/fetch-orders').then(
+    await axios.get('https://sb-foods-1.onrender.com/fetch-orders').then(
       (response)=>{
         setOrders(response.data.reverse());
       }
@@ -22,7 +22,7 @@ const AllOrders = () => {
   }
 
   const cancelOrder = async(id) =>{
-    await axios.put('http://localhost:6001/cancel-order', {id}).then(
+    await axios.put('https://sb-foods-1.onrender.com/cancel-order', {id}).then(
       (response)=>{
         alert('order cancelled!!');
         fetchOrders();
@@ -31,7 +31,7 @@ const AllOrders = () => {
   }
 
   const updateOrderStatus = async(id) =>{
-    await axios.put('http://localhost:6001/update-order-status', {id, updateStatus}).then(
+    await axios.put('https://sb-foods-1.onrender.com/update-order-status', {id, updateStatus}).then(
       (response)=>{
         alert("Order status updated!!");
         setUpdateStatus('');

@@ -42,7 +42,7 @@ const EditProduct = () => {
     const defaults = availableMenuCategories;
     setAvailableMenuCategories(defaults);
     try {
-      const { data } = await axios.get('http://localhost:6001/fetch-categories');
+      const { data } = await axios.get('https://sb-foods-1.onrender.com/fetch-categories');
       const filtered = data.filter(cat => !availableCuisines.includes(cat));
       setAvailableMenuCategories([...new Set([...defaults, ...filtered])]);
     } catch { /* keep defaults */ }
@@ -50,14 +50,14 @@ const EditProduct = () => {
 
   const fetchCuisines = async () => {
     try {
-      const { data } = await axios.get('http://localhost:6001/fetch-cuisines');
+      const { data } = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
       setAvailableCuisines(data);
     } catch { /* keep defaults */ }
   };
 
   const fetchRestaurant = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:6001/fetch-restaurant-details/${userId}`);
+      const { data } = await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant-details/${userId}`);
       setRestaurant(data);
     } catch (err) {
       console.error(err);
@@ -66,7 +66,7 @@ const EditProduct = () => {
 
   const fetchItem = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:6001/fetch-item-details/${id}`);
+      const { data } = await axios.get(`https://sb-foods-1.onrender.com/fetch-item-details/${id}`);
       setProductName(data.title);
       setProductDescription(data.description);
       setProductMainImg(data.itemImg);
@@ -99,7 +99,7 @@ const EditProduct = () => {
       : productMenuCategory;
 
     try {
-      await axios.put(`http://localhost:6001/update-product/${id}`, {
+      await axios.put(`https://sb-foods-1.onrender.com/update-product/${id}`, {
         restaurantId: restaurant._id,
         productName,
         productDescription,
@@ -125,7 +125,7 @@ const EditProduct = () => {
       return;
     }
     try {
-      await axios.delete(`http://localhost:6001/delete-product/${id}`);
+      await axios.delete(`https://sb-foods-1.onrender.com/delete-product/${id}`);
       alert("Product deleted successfully");
       resetForm();
       navigate('/restaurant-menu');

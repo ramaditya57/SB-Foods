@@ -11,7 +11,7 @@ const AllRestaurants = () => {
       }, [])
 
     const fetchRestaurants = async() =>{
-        await axios.get('http://localhost:6001/fetch-restaurants').then(
+        await axios.get('https://sb-foods-1.onrender.com/fetch-restaurants').then(
           (response)=>{
             setRestaurants(response.data);
           }

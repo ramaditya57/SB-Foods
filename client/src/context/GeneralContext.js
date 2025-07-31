@@ -28,7 +28,7 @@ const GeneralContextProvider = ({children}) => {
   const fetchCartCount = async() =>{
     const userId = localStorage.getItem('userId');
     if(userId){
-      await axios.get('http://localhost:6001/fetch-cart').then(
+      await axios.get('https://sb-foods-1.onrender.com/fetch-cart').then(
         (response)=>{
           setCartCount(response.data.filter(item=> item.userId === userId).length);
         }
@@ -49,7 +49,7 @@ const GeneralContextProvider = ({children}) => {
   const login = async () =>{
     try{
       const loginInputs = {email, password}
-        await axios.post('http://localhost:6001/login', loginInputs)
+        await axios.post('https://sb-foods-1.onrender.com/login', loginInputs)
         .then( async (res)=>{
 
           localStorage.setItem('userId', res.data._id);
@@ -77,7 +77,7 @@ const GeneralContextProvider = ({children}) => {
 
   const register = async () =>{
     try{
-        await axios.post('http://localhost:6001/register', inputs)
+        await axios.post('https://sb-foods-1.onrender.com/register', inputs)
         .then( async (res)=>{
             localStorage.setItem('userId', res.data._id);
             localStorage.setItem('userType', res.data.usertype);
