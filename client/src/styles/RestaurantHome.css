@@ -1,0 +1,278 @@
+/* src/styles/RestaurantHome.css */
+
+/* --- Variables for easier maintenance --- */
+:root {
+    --bg-dark-primary: #1e1e24; /* Richer dark card background */
+    --bg-dark-secondary: #282c34; /* Deeper main page background */
+    --text-primary: rgba(255, 255, 255, 0.95); /* Brighter text for better contrast */
+    --text-secondary: rgba(255, 255, 255, 0.7); /* Dimmer but still readable text */
+    --accent-color: #ff7e33; /* Brighter orange accent */
+    --accent-color-hover: #ff6a00;
+    --danger-color: #ff4d4d;
+    --success-color: #4ade80;
+    --card-border-color: rgba(255, 255, 255, 0.05); /* Subtle border */
+    --card-shadow: rgba(0, 0, 0, 0.35);
+    --card-hover-shadow: rgba(255, 126, 51, 0.15); /* Orange tinted shadow on hover */
+  }
+  
+  /* --- Base Page Layout --- */
+  .restaurantHome-page {
+    background-color: var(--bg-dark-secondary);
+    background-image: radial-gradient(circle at top right, rgba(255, 126, 51, 0.05), transparent 70%); /* Subtle gradient */
+    min-height: 100vh;
+    width: 100%;
+    padding: 4rem 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative; /* For potential decorative elements */
+  }
+  
+  /* Page title */
+  .dashboard-title {
+    color: var(--text-primary);
+    font-size: 2.25rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-align: center;
+    position: relative;
+  }
+  
+  .dashboard-title:after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background-color: var(--accent-color);
+    border-radius: 4px;
+  }
+  
+  /* --- Pending Approval Message --- */
+  .restaurant-approval-required {
+    text-align: center;
+    background-color: var(--bg-dark-primary);
+    width: 90%;
+    max-width: 600px;
+    padding: 3rem 2rem;
+    border-radius: 1rem;
+    border: 1px solid var(--card-border-color);
+    box-shadow: 0 8px 30px var(--card-shadow);
+    color: var(--text-primary);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .restaurant-approval-required:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(to right, var(--danger-color), var(--accent-color));
+  }
+  
+  .restaurant-approval-required h3 {
+    color: var(--danger-color);
+    font-size: 1.85rem; 
+    margin-bottom: 1.5rem;
+    font-weight: 700;
+  }
+  
+  .restaurant-approval-required p {
+    color: var(--text-secondary);
+    font-size: 1.15rem;
+    line-height: 1.7;
+  }
+  
+  /* Warning message */
+  .warning-message {
+    color: #ffb700;
+    margin-bottom: 2rem;
+    background: rgba(255, 183, 0, 0.1);
+    padding: 1rem 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(255, 183, 0, 0.3);
+    max-width: 600px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+  }
+  
+  /* --- Dashboard Card Grid --- */
+  .dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    width: 100%;
+    max-width: 1200px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  /* --- Admin Cards --- */
+  .admin-home-card {
+    color: var(--text-primary);
+    text-align: center;
+    background-color: var(--bg-dark-primary);
+    padding: 2rem 1.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--card-border-color);
+    box-shadow: 0 8px 18px var(--card-shadow);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 220px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  /* Card top accent line */
+  .admin-home-card:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+  }
+  
+  .admin-home-card:hover {
+    box-shadow: 0 12px 28px var(--card-hover-shadow);
+    transform: translateY(-7px);
+    border-color: rgba(255, 126, 51, 0.2);
+  }
+  
+  .admin-home-card:hover:before {
+    opacity: 1;
+  }
+  
+  .admin-home-card h5 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+    position: relative;
+    display: inline-block;
+  }
+  
+  .admin-home-card p {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin: 1.25rem 0;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Specific styling for the "(new)" text */
+  .admin-home-card p.new-item-text {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--success-color);
+    letter-spacing: 0.5px;
+  }
+  
+  /* Card icon container */
+  .card-icon {
+    margin-bottom: 1rem;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* --- Card Buttons --- */
+  .admin-home-card button {
+    border: none;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    margin-top: 1.5rem;
+    align-self: center;
+    width: auto;
+    min-width: 140px;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 10px rgba(255, 126, 51, 0.3);
+  }
+  
+  .admin-home-card button:hover {
+    background-color: var(--accent-color-hover);
+    box-shadow: 0 6px 15px rgba(255, 126, 51, 0.4);
+    transform: translateY(-2px);
+  }
+  
+  /* Basic focus style for accessibility */
+  .admin-home-card button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 126, 51, 0.5);
+  }
+  
+  /* Loading spinner */
+  .loading-spinner {
+    border: 4px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid var(--accent-color);
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .loading-text {
+    color: var(--text-primary);
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  
+  /* --- Responsive Adjustments --- */
+  
+  /* Medium screens (e.g., tablets) */
+  @media (min-width: 640px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2rem;
+    }
+    .restaurantHome-page {
+      padding: 5rem 2rem;
+    }
+    .dashboard-title {
+      font-size: 2.5rem;
+    }
+  }
+  
+  /* Large screens (e.g., desktops) */
+  @media (min-width: 1024px) {
+    .dashboard-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2.5rem;
+    }
+    .restaurantHome-page {
+      padding: 6rem 3rem;
+    }
+    .dashboard-title {
+      font-size: 2.75rem;
+    }
+  }

@@ -1,0 +1,221 @@
+/* Main page layout */
+.HomePage {
+    margin-top: 10vh; /* Reduced from 25vh to accommodate the new slider */
+}
+
+/* Banner Slider Styles */
+.banner-slider {
+    width: 100%;
+    height: 400px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 5vh;
+}
+
+.banner-slide {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transition: all 0.5s ease;
+    display: flex;
+    align-items: center;
+}
+
+.banner-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.banner-content {
+    position: absolute;
+    left: 50px;
+    max-width: 500px;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 25px;
+    border-radius: 10px;
+}
+
+.banner-content h2 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.banner-content p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 15px;
+}
+
+.banner-button {
+    padding: 10px 20px;
+    background-color: #ff4757;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.banner-button:hover {
+    background-color: #ff3040;
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+}
+
+.slider-dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+.slider-dot.active {
+    background-color: white;
+}
+
+/* Category section */
+.home-categories-container {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap; /* Added to make it responsive */
+    margin-top: 8vh;
+    margin-bottom: 10vh;
+    padding: 0 20px;
+}
+
+.home-category-card {
+    text-align: center;
+    width: 200px;
+    height: fit-content;
+    border-radius: 1.5rem;
+    cursor: pointer;
+    padding: 15px;
+    margin: 10px; /* Added for spacing when wrapping */
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.home-category-card:hover {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px;
+    transform: translateY(-5px);
+}
+
+.home-category-card img {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 1px solid #c6c4c4;
+    object-fit: cover; /* Ensures images aren't distorted */
+}
+
+.home-category-card h5 {
+    padding-top: 10px;
+    margin-bottom: 0;
+    color: #4c4747;
+    font-size: 1.1rem;
+}
+
+/* Restaurant section styling */
+.restaurants-container {
+    padding: 0 5%;
+    margin-bottom: 5vh;
+}
+
+.restaurants-body h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.restaurants {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.restaurant-item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.restaurant-item:hover {
+    transform: translateY(-5px);
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+.restaurant {
+    cursor: pointer;
+}
+
+.restaurant img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover; /* This fixes the image being cut off */
+}
+
+.restaurant-data {
+    padding: 15px;
+}
+
+.restaurant-data h6 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.restaurant-data p {
+    color: #777;
+    font-size: 0.9rem;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    .HomePage {
+        margin-top: 8vh;
+    }
+    
+    .banner-slider {
+        height: 300px;
+    }
+    
+    .banner-content {
+        left: 30px;
+        max-width: 70%;
+    }
+    
+    .banner-content h2 {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .banner-slider {
+        height: 250px;
+    }
+    
+    .banner-content {
+        left: 20px;
+        padding: 15px;
+    }
+    
+    .banner-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .banner-content p {
+        font-size: 0.9rem;
+    }
+}
