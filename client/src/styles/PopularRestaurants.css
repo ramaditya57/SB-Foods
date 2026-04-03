@@ -1,59 +1,115 @@
-.popularRestaurantContainer{
+/* ============================================
+   Popular Restaurants — Futuristic Light Theme
+   ============================================ */
 
-    margin: 3vh 10px 10vh 10px;
-    background-color: rgba(235, 239, 243, 0.548);
-    padding: 10px 0;
-    border-radius: 0.8rem;
-}
-.popularRestaurantContainer h3{
-
-    margin-left: 2vw;
-    color: rgb(234, 115, 60);
-}
-
-.popularRestaurant-body{
-    display: flex;
-    gap: 20px;
-    margin: 3vh 2vw;
-    overflow-x: scroll;
-    height: fit-content;
-    padding: 20px 20px;
-    background-color: rgb(255, 255, 255);
+.popularRestaurantContainer {
+  margin: var(--space-xl) var(--content-padding) var(--space-3xl);
+  background: linear-gradient(135deg, var(--primary-light), #f8f9fc, #fff1f2);
+  padding: var(--space-xl) 0;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
 }
 
-.popularRestaurantCard{
-    cursor: pointer;
-    padding: 10px;
+.popularRestaurantContainer .section-header {
+  margin: 0 var(--space-xl) var(--space-lg);
 }
 
-.popularRestaurantCard:hover{
-    box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
-    border-radius: 0.8rem;
-}
-.popularRestaurantCard img{
-
-    height: 30vh;
-    width: 35vh;
-    border-radius: 1rem;
+.popularRestaurantContainer .section-header h3 {
+  color: var(--primary);
+  font-size: 1.5rem;
 }
 
-.popularRestaurantCard-data{
-    width: 15vw;
-    text-align: center;
+.popularRestaurant-body {
+  display: flex;
+  gap: var(--space-lg);
+  margin: 0 var(--space-xl);
+  overflow-x: auto;
+  padding: var(--space-md) var(--space-sm);
+  scroll-behavior: smooth;
 }
 
-.popularRestaurantCard-data h6{
-    margin: 0;
-    font-size: 1rem;
+.popularRestaurant-body::-webkit-scrollbar {
+  height: 5px;
+}
+.popularRestaurant-body::-webkit-scrollbar-thumb {
+  background: var(--primary);
+  border-radius: var(--radius-full);
 }
 
-.popularRestaurantCard-data p{
-    font-size: 0.7rem;
-    margin: 0;
+.popularRestaurantCard {
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-normal);
+  flex-shrink: 0;
+  background: var(--bg-card);
+  border: 1px solid transparent;
 }
 
-.popularRestaurantCard-data h5{
-    margin: 0;
-    font-size: 1.1rem;
-    color: rgb(224, 47, 47);
+.popularRestaurantCard:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-light);
+  transform: translateY(-4px);
+}
+
+.popularRestaurantCard img {
+  height: 200px;
+  width: 260px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.popularRestaurantCard:hover img {
+  transform: scale(1.03);
+}
+
+.popularRestaurantCard-data {
+  width: 260px;
+  text-align: center;
+  padding-top: var(--space-sm);
+}
+
+.popularRestaurantCard-data h6 {
+  margin: 0;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.popularRestaurantCard-data p {
+  font-size: 0.78rem;
+  margin: 4px 0 0;
+  color: var(--text-muted);
+}
+
+.popularRestaurantCard-data h5 {
+  margin: 6px 0 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+@media (max-width: 768px) {
+  .popularRestaurantContainer {
+    margin: var(--space-xl) var(--space-md) var(--space-2xl);
+    padding: var(--space-lg) 0;
+  }
+  .popularRestaurantContainer h3 {
+    margin-left: var(--space-md);
+    font-size: 1.3rem;
+  }
+  .popularRestaurant-body {
+    margin: 0 var(--space-md);
+    gap: var(--space-md);
+  }
+  .popularRestaurantCard img {
+    height: 160px;
+    width: 220px;
+  }
+  .popularRestaurantCard-data {
+    width: 220px;
+  }
 }

@@ -201,24 +201,26 @@ const AllUsers = () => {
         {users.filter(user => user.usertype !== 'admin').map((user) => (
           <div className="user-card" key={user._id}>
             <span>
-              <h5>User Id </h5>
+              <h5>User Id</h5>
               <p>{user._id}</p>
             </span>
             <span>
-              <h5>User Name </h5>
+              <h5>Username</h5>
               <p>{user.username}</p>
             </span>
             <span>
-              <h5>Email Address </h5>
+              <h5>Email</h5>
               <p>{user.email}</p>
             </span>
             <span>
-              <h5>User Type </h5>
+              <h5>Role</h5>
               <p>{user.usertype}</p>
             </span>
             <span>
-              <h5>Status </h5>
-              <p>{user.approval}</p>
+              <h5>Status</h5>
+              <p className={user.approval === 'approved' ? 'status-approved' : 'status-pending'}>
+                {user.approval}
+              </p>
             </span>
             <div className="user-actions">
               <button 

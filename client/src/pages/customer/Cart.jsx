@@ -1,8 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import '../../styles/Cart.css'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContext';
+import useScrollReveal from '../../hooks/useScrollReveal';
+import Toast from '../../components/Toast';
 
 const Cart = () => {
 
@@ -13,43 +15,35 @@ const Cart = () => {
   const userId = localStorage.getItem('userId');
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    fetchCart();
-    if(cart){
-      calculateTotalPrice();
-    }
-  }, [])
+  // Toast state
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const showToast = (message, type = 'success') => setToast({ show: true, message, type });
+  const hideToast = useCallback(() => setToast(prev => ({ ...prev, show: false })), []);
 
-const fetchCart = async() =>{
+  useScrollReveal();
+
+  const fetchCart = useCallback(async() =>{
     await axios.get('https://sb-foods-1.onrender.com/fetch-cart').then(
       (response)=>{
         setCart(response.data.filter(item=> item.userId === userId));
       }
     )
-  }
+  }, [userId]);
 
-
-  const removeItem = async(id) =>{
+  const removeCartItem = async(id) =>{
     await axios.put('https://sb-foods-1.onrender.com/remove-item', {id}).then(
       (response)=>{
         fetchCart();
         fetchCartCount();
       }
     )
-}
-
+  };
 
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalDiscount, setTotalDiscount] = useState(0);
-  const [deliveryCharges, setDeliveryCharges] = useState(0)
+  const [deliveryCharges, setDeliveryCharges] = useState(0);
 
-  useEffect(()=>{
-    if(cart){
-      calculateTotalPrice();
-    }
-  }, [cart])
-
-  const calculateTotalPrice = () => {
+  const calculateTotalPrice = useCallback(() => {
     const price = cart.reduce((sum, product) => sum + (product.price * product.quantity), 0);
     const discount = cart.reduce((sum, product)=> sum + ((product.price * product.discount)/100 )* product.quantity, 0);
     setTotalPrice(price);
@@ -59,7 +53,15 @@ const fetchCart = async() =>{
     } else{ 
       setDeliveryCharges(50);
     }
-  };
+  }, [cart]);
+
+  useEffect(()=>{
+    fetchCart();
+  }, [fetchCart]);
+
+  useEffect(()=>{
+    calculateTotalPrice();
+  }, [cart, calculateTotalPrice]);
 
 
   const [name, setName] = useState('');
@@ -73,28 +75,32 @@ const fetchCart = async() =>{
     if(cart.length > 0){
         await axios.post('https://sb-foods-1.onrender.com/place-cart-order', {userId, name, mobile, email, address, pincode, paymentMethod, orderDate: new Date()}).then(
           (response)=>{
-            alert('Order placed!!');
+            showToast('Order placed successfully! 🎉', 'success');
             setName('');
             setMobile('');
             setEmail('');
             setAddress('');
             setPincode('');
             setPaymentMethod('');
-            navigate('/profile');
+            setTimeout(() => navigate('/profile'), 1500);
           }
-        )
+        ).catch(() => {
+          showToast('Failed to place order. Please try again.', 'error');
+        });
     }
   }
 
   return (
-    <div className="cartPage">
-      <div className="cartContents">
+    <div className="cartPage page-enter">
+      <div className="cartContents" data-reveal="fade-left">
 
-        {cart.length === 0?
-        <p>No items in the cart..</p>
-        :
-        ""
-        }
+        {cart.length === 0 ? (
+          <div className="empty-state">
+            <div className="empty-state-icon">🛒</div>
+            <h4>Your cart is empty</h4>
+            <p>Browse restaurants and add delicious items to your cart</p>
+          </div>
+        ) : null}
 
         {cart.map((item)=>(
           
@@ -104,13 +110,12 @@ const fetchCart = async() =>{
                 <h4>{item.foodItemName}</h4>
                 <p>{item.restaurantName}</p>
                 <div className="cartItem-inputs">
-                  <div className="cartItem-input">
-                      <button className="btn ">Quantity: </button>
-                    <input type="number" className="form-control quantity-field" value={item.quantity} min="1" disabled />
+                  <div className="cartItem-qty-pill">
+                      Quantity: <strong>{item.quantity}</strong>
                   </div>
                 <h6>Price: &#8377; {parseInt(item.price - (item.price*item.discount)/100)} <s> &#8377;{item.price}</s></h6>
                 </div>
-                <button className='btn btn-outline-danger' onClick={()=> removeItem(item._id)}>Remove</button>
+                <button className='btn btn-outline-danger' onClick={()=> removeCartItem(item._id)}>Remove</button>
               </div>
             </div>
         ))}
@@ -119,11 +124,11 @@ const fetchCart = async() =>{
       </div>
 
 
-      <div className="cartPriceBody">
+      <div className="cartPriceBody" data-reveal="fade-right">
         <h4>Price Details</h4>
         <span><b>Total MRP: </b> <p>&#8377; {totalPrice}</p></span>
-        <span><b>Discount on MRP: </b> <p style={{color:"rgb(7, 156, 106)"}}> - &#8377; {totalDiscount}</p></span>
-        <span><b>Delivery Charges: </b> <p style={{color:"red"}}> + &#8377; {deliveryCharges}</p></span>
+        <span><b>Discount on MRP: </b> <p style={{color: 'var(--success)'}}>- &#8377; {totalDiscount}</p></span>
+        <span><b>Delivery Charges: </b> <p style={{color: 'var(--accent)'}}>+ &#8377; {deliveryCharges}</p></span>
         <hr />
         <h5><b>Final Price: </b> &#8377; {totalPrice - totalDiscount + deliveryCharges}</h5>
         <button data-bs-toggle="modal" data-bs-target="#staticBackdrop">Place order</button>
@@ -201,7 +206,7 @@ const fetchCart = async() =>{
 
 
 
-
+      <Toast show={toast.show} message={toast.message} type={toast.type} onClose={hideToast} />
     </div>
   )
 }

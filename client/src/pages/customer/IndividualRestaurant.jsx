@@ -1,61 +1,70 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import '../../styles/IndividualRestaurant.css'
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { GeneralContext } from '../../context/GeneralContext';
+import useScrollReveal from '../../hooks/useScrollReveal';
+import Toast from '../../components/Toast';
 
 const IndividualRestaurant = () => {
   const {fetchCartCount} = useContext(GeneralContext);
-  const navigate = useNavigate();
   const userId = localStorage.getItem('userId');
   const {id} = useParams();
   
   const [restaurant, setRestaurant] = useState();
-  const [menuCategories, setMenuCategories] = useState([]); // Renamed for clarity
-  const [cuisines, setCuisines] = useState([]); // Specifically for cuisines
+  const [menuCategories, setMenuCategories] = useState([]);
+  const [cuisines, setCuisines] = useState([]);
   const [items, setItems] = useState([]);
   const [visibleItems, setVisibleItems] = useState([]);
+
+  // Toast state
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+
+  const showToast = (message, type = 'success') => {
+    setToast({ show: true, message, type });
+  };
+
+  const hideToast = useCallback(() => {
+    setToast(prev => ({ ...prev, show: false }));
+  }, []);
+
+  useScrollReveal();
 
   useEffect(() => {
     fetchMenuCategories();
     fetchCuisines();
     fetchItems();
     fetchRestaurants();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [id]);
 
   const fetchRestaurants = async() => {
     await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant/${id}`).then(
       (response) => {
         setRestaurant(response.data);
-        console.log(response.data);
       }
     ).catch((err) => {
       console.log(err);
     });
-  }
+  };
 
-  // Changed this function to clearly fetch menu categories
   const fetchMenuCategories = async() => {
     try {
-      // Check if there's a specific endpoint for menu categories
       const response = await axios.get('https://sb-foods-1.onrender.com/fetch-menu-categories');
       setMenuCategories(response.data);
     } catch (err) {
       console.log("Error fetching menu categories, will extract from items:", err);
-      // Will extract menu categories from items when items are loaded
     }
-  }
+  };
 
-  // Separate function to fetch cuisines
   const fetchCuisines = async() => {
     try {
       const response = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
       setCuisines(response.data);
     } catch (err) {
       console.log("Error fetching cuisines, will extract from items:", err);
-      // Will extract cuisines from items when items are loaded
     }
-  }
+  };
 
   const fetchItems = async() => {
     await axios.get(`https://sb-foods-1.onrender.com/fetch-items`).then(
@@ -64,26 +73,17 @@ const IndividualRestaurant = () => {
         setItems(allItems);
         setVisibleItems(allItems);
         
-        // Extract unique menu categories and cuisines if they weren't loaded from API
-        if (menuCategories.length === 0) {
-          const uniqueMenuCategories = [...new Set(allItems.map(item => item.menuCategory))].filter(Boolean);
-          setMenuCategories(uniqueMenuCategories);
-        }
-        
-        if (cuisines.length === 0) {
-          const uniqueCuisines = [...new Set(allItems.map(item => item.cuisine))].filter(Boolean);
-          setCuisines(uniqueCuisines);
-        }
+        setMenuCategories(prev => prev.length === 0 ? [...new Set(allItems.map(item => item.menuCategory))].filter(Boolean) : prev);
+        setCuisines(prev => prev.length === 0 ? [...new Set(allItems.map(item => item.cuisine))].filter(Boolean) : prev);
       }
     );
-  }
+  };
 
   const [sortFilter, setSortFilter] = useState('popularity');
-  const [menuCategoryFilter, setMenuCategoryFilter] = useState([]); // Renamed for clarity
+  const [menuCategoryFilter, setMenuCategoryFilter] = useState([]);
   const [typeFilter, setTypeFilter] = useState([]);
   const [cuisineFilter, setCuisineFilter] = useState([]);
 
-  // Handler for menu category checkboxes
   const handleMenuCategoryCheckBox = (e) => {
     const value = e.target.value;
     if (e.target.checked) {
@@ -102,7 +102,6 @@ const IndividualRestaurant = () => {
     }
   }
 
-  // Handler for cuisine checkboxes
   const handleCuisineCheckBox = (e) => {
     const value = e.target.value;
     if (e.target.checked) {
@@ -116,7 +115,6 @@ const IndividualRestaurant = () => {
     const value = e.target.value;
     setSortFilter(value);
     
-    // Create a copy of visibleItems to sort
     const itemsToSort = [...visibleItems];
     
     if (value === 'low-price') {
@@ -130,32 +128,25 @@ const IndividualRestaurant = () => {
     }
   }
 
-  // Update filtering whenever any filter changes
   useEffect(() => {
-    // Start with all items
     let filteredItems = [...items];
     
-    // Filter by restaurant ID first (this should always be applied)
     if (restaurant && restaurant._id) {
       filteredItems = filteredItems.filter(item => item.restaurantId === restaurant._id);
     }
     
-    // Apply menu category filter
     if (menuCategoryFilter.length > 0) {
       filteredItems = filteredItems.filter(item => menuCategoryFilter.includes(item.menuCategory));
     }
     
-    // Apply food type filter
     if (typeFilter.length > 0) {
       filteredItems = filteredItems.filter(item => typeFilter.includes(item.category));
     }
     
-    // Apply cuisine filter
     if (cuisineFilter.length > 0) {
       filteredItems = filteredItems.filter(item => cuisineFilter.includes(item.cuisine));
     }
     
-    // Apply sorting
     if (sortFilter === 'low-price') {
       filteredItems = [...filteredItems].sort((a, b) => a.price - b.price);
     } else if (sortFilter === 'high-price') {
@@ -170,30 +161,30 @@ const IndividualRestaurant = () => {
   }, [restaurant, menuCategoryFilter, typeFilter, cuisineFilter, sortFilter, items]);
 
   const [cartItem, setCartItem] = useState('');
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = async(foodItemId, foodItemName, restaurantId, foodItemImg, price, discount) => {
     await axios.post('https://sb-foods-1.onrender.com/add-to-cart', {
       userId, foodItemId, foodItemName, restaurantId, foodItemImg, price, discount, quantity
     }).then((response) => {
-      alert("Product added to cart!");
+      showToast(`${foodItemName} added to cart!`, 'success');
       setCartItem('');
       setQuantity(0);
       fetchCartCount();
     }).catch((err) => {
-      alert("Operation failed!");
+      showToast('Failed to add item. Please try again.', 'error');
     });
   }
 
   return (
-    <div className="IndividualRestaurant-page">
+    <div className="IndividualRestaurant-page page-enter">
       {restaurant ? (
         <>
-          <h2>{restaurant.title}</h2>
-          <p>{restaurant.address}</p>
+          <h2 data-reveal="fade-up">{restaurant.title}</h2>
+          <p data-reveal="fade-up" data-reveal-delay="100">{restaurant.address}</p>
 
           <div className="IndividualRestaurant-body">
-            <div className="restaurants-filter">
+            <div className="restaurants-filter" data-reveal="fade-right">
               <h4>Filters</h4>
               <div className="restaurant-filters-body">
 
@@ -310,11 +301,18 @@ const IndividualRestaurant = () => {
             </div>
 
             <div className="restaurants-body">
-              <h3>All Items</h3>
+              <div className="section-header">
+                <h3>All Items</h3>
+              </div>
               <div className="restaurants">
-                {visibleItems.map((item) => (
-                  <div className='restaurant-item' key={item._id}>
-                    <div className="restaurant">
+                {visibleItems.map((item, index) => (
+                  <div
+                    className='restaurant-item'
+                    key={item._id}
+                    data-reveal="fade-up"
+                    data-reveal-delay={index * 50}
+                  >
+                    <div className={`restaurant ${cartItem === item._id ? 'active-card' : ''}`}>
                       <img src={item.itemImg} alt={item.title} />
                       <div className="restaurant-data">
                         <h6>{item.title}</h6>
@@ -327,12 +325,11 @@ const IndividualRestaurant = () => {
                         </small>
                         {cartItem === item._id ? (
                           <>
-                            <input 
-                              type="number" 
-                              style={{width: '60px', margin: '10px 0', fontSize: '0.7rem'}} 
-                              placeholder='count' 
-                              onChange={(e) => setQuantity(e.target.value)} 
-                            /><br />
+                            <div className="quantity-selector">
+                              <button className="qty-btn" onClick={() => setQuantity(prev => Math.max(1, parseInt(prev) - 1))}>-</button>
+                              <span className="qty-value">{quantity}</span>
+                              <button className="qty-btn" onClick={() => setQuantity(prev => parseInt(prev) + 1)}>+</button>
+                            </div>
                             <button 
                               className='btn btn-outline-primary' 
                               onClick={() => handleAddToCart(item._id, item.title, item.restaurantId, item.itemImg, item.price, item.discount)}
@@ -343,7 +340,7 @@ const IndividualRestaurant = () => {
                         ) : (
                           <button 
                             className='btn btn-outline-primary' 
-                            onClick={() => setCartItem(item._id)}
+                            onClick={() => { setCartItem(item._id); setQuantity(1); }}
                           >
                             Add item
                           </button>
@@ -357,8 +354,19 @@ const IndividualRestaurant = () => {
           </div>
         </>
       ) : (
-        <p>No data found</p>
+        <div className="empty-state">
+          <div className="empty-state-icon">🍽️</div>
+          <h4>Loading restaurant...</h4>
+          <p>Fetching the menu for you</p>
+        </div>
       )}
+
+      <Toast 
+        show={toast.show} 
+        message={toast.message} 
+        type={toast.type} 
+        onClose={hideToast} 
+      />
     </div>
   );
 }

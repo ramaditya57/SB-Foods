@@ -1,79 +1,130 @@
-.AuthenticatePage{
-    width: 100%;
-    height: 100vh;
-    padding-top: 12vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ============================================
+   Authentication — Futuristic Light Theme
+   ============================================ */
+
+.AuthenticatePage {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: calc(var(--navbar-height) + var(--space-xl));
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: linear-gradient(135deg, var(--bg-page), var(--primary-light), var(--bg-page));
 }
 
-.authForm{
-    /* margin-top: 5%; */
-    /* border: 1px solid #cb7c7c; */
-    padding: 20px;
-    width: 400px;
-    display: flex;
-    flex-direction: column;
-    /* align-items: center; */
-    justify-content: center;
-    text-align: center;
-    height: max-content;
-    font-family: 'Work Sans', sans-serif;
-
-    background-color: rgba(255, 255, 255, 0.263);
-    backdrop-filter: blur(10px);
-    box-shadow: rgba(14, 30, 37, 0.12) 0px 2px 4px 0px, rgba(14, 30, 37, 0.32) 0px 2px 16px 0px;
-    border-radius: 0.5rem;
-
+.authForm {
+  padding: var(--space-2xl) var(--space-xl);
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: var(--shadow-lg);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  transition: var(--transition-normal);
 }
-.authForm h2{
-    margin-bottom: 20px;
-    font-family: 'Poppins', sans-serif;
-    color: rgb(0, 79, 135);
-    font-size: 1.8rem;
+
+.authForm:hover {
+  box-shadow: var(--shadow-glow);
 }
+
+.authForm h2 {
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-heading);
+  color: var(--primary);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
 .authFormInputs {
-    width: 100%;
-    height: 50px;
+  width: 100%;
+  height: 50px;
+  margin-bottom: var(--space-sm);
 }
 
-.authFormInputs label{
-    color: rgb(0, 61, 101);
-    /* padding: 0; */
+.authFormInputs label {
+  color: var(--text-secondary);
+  font-size: 0.85rem;
 }
-.authFormInputs input{
-    color: rgb(0, 61, 101);
-    border: none;
-    outline: none;
-    background-color: rgba(231, 235, 235, 0);
-    border: 1px solid #9dc1d975;
-    /* padding: 0; */
+
+.authFormInputs input {
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-light);
+  outline: none;
+  background-color: var(--bg-subtle);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-normal);
+  font-family: var(--font-body);
 }
+
+.authFormInputs input:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+  background-color: var(--bg-card);
+}
+
 .authForm select {
-    color: rgb(0, 61, 101);
-    border: none;
-    outline: none;
-    background-color: rgba(231, 235, 235, 0);
-    border: 1px solid #9dc1d975;
-    font-size: medium;
-    padding: 15px 10px;
-}
-.authFormInputs input #floatingInput .form-control{
-    padding: 0 !important;
+  color: var(--text-primary);
+  border: 1.5px solid var(--border-light);
+  outline: none;
+  background-color: var(--bg-subtle);
+  font-size: 0.9rem;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  transition: var(--transition-normal);
+  font-family: var(--font-body);
+  width: 100%;
 }
 
-.authForm button{
-    background-color: rgb(0, 108, 197);
-    font-weight: bold;
-    color: rgb(246, 251, 255);
-    height: 50px;
+.authForm select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
 }
-.authForm p{
-    margin-top: 5%;
-    color: black;
+
+.authForm button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+  font-weight: 600;
+  color: var(--text-inverse);
+  height: 48px;
+  border-radius: var(--radius-sm);
+  border: none;
+  transition: var(--transition-normal);
+  cursor: pointer;
+  font-size: 1rem;
+  font-family: var(--font-body);
+  margin-top: var(--space-md);
 }
-.authForm p span{
-    margin-top: 5%;
-    color: rgb(0, 68, 107);
-    cursor: pointer;
+
+.authForm button:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
+}
+
+.authForm p {
+  margin-top: var(--space-lg);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.authForm p span {
+  color: var(--primary);
+  cursor: pointer;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.authForm p span:hover {
+  color: var(--primary-hover);
+}
+
+@media (max-width: 480px) {
+  .authForm {
+    margin: 0 var(--space-md);
+    padding: var(--space-xl) var(--space-lg);
+  }
 }

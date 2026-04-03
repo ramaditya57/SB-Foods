@@ -35,13 +35,21 @@ const PopularRestaurants = () => {
 
   return (
     <div className="popularRestaurantContainer">
-        <h3>Popular Restaurants</h3>
+        <div className="section-header">
+          <h3>Popular Restaurants</h3>
+        </div>
         <div className="popularRestaurant-body">
 
-            {restaurants.filter(restaurant=> promoteList.includes(restaurant._id)).map((restaurant)=>(
+            {restaurants.filter(restaurant=> promoteList.includes(restaurant._id)).map((restaurant, index)=>(
 
-                <div className="popularRestaurantCard" key={restaurant._id} onClick={()=> navigate(`/restaurant/${restaurant._id}`)}>
-                    <img src={restaurant.mainImg} alt="" />
+                <div
+                  className="popularRestaurantCard"
+                  key={restaurant._id}
+                  onClick={()=> navigate(`/restaurant/${restaurant._id}`)}
+                  data-reveal="zoom"
+                  data-reveal-delay={index * 100}
+                >
+                    <img src={restaurant.mainImg} alt={restaurant.title} />
                     <div className="popularRestaurantCard-data">
                         <h6>{restaurant.title}</h6>
                         <p>{restaurant.address}</p>

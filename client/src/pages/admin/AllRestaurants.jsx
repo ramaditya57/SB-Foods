@@ -19,31 +19,33 @@ const AllRestaurants = () => {
       }
 
   return (
-    <div className="AllRestaurantsPage" style={{marginTop: '14vh'}}>
-
-    <div className="restaurants-container">
- 
-        <div className="restaurants-body">
-            <h3>All restaurants</h3>
-            <div className="restaurants">
-
-                {restaurants.map((restaurant) =>(
-
-                    <div className='restaurant-item' key={restaurant._id}>
-                        <div className="restaurant">
-                            <img src={restaurant.mainImg} alt="" />
-                            <div className="restaurant-data">
-                                <h6>{restaurant.title}</h6>
-                                <p>{restaurant.address}</p>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-
-
+    <div className="admin-page all-restaurants-admin">
+      <div className="admin-content-header">
+        <h3>All restaurants</h3>
+      </div>
+      
+      <div className="admin-restaurants-grid">
+        {restaurants.map((restaurant) => (
+          <div className='restaurant-card-wrapper' key={restaurant._id}>
+            <div className="restaurant-card-modern">
+              <div className="restaurant-image-container">
+                <img 
+                  src={restaurant.mainImg} 
+                  alt={restaurant.title}
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80"; // Fallback
+                  }}
+                />
+              </div>
+              <div className="restaurant-details">
+                <h6>{restaurant.title}</h6>
+                <p>{restaurant.address}</p>
+              </div>
             </div>
-        </div>
-    </div>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }

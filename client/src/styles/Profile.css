@@ -1,151 +1,204 @@
-.profilePage{
+/* ============================================
+   Profile — Futuristic Light Theme
+   ============================================ */
 
-    margin-top: 15vh;
-    display: flex;
-
+.profilePage {
+  margin-top: calc(var(--navbar-height) + var(--space-xl));
+  display: flex;
+  gap: var(--space-xl);
+  padding: 0 var(--content-padding);
+  max-width: var(--max-width);
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.profileCard{
-    width: 21%;
-    margin: 5vh 2%;
-    padding: 2vh 1.5vw;
-    background-color: rgba(242, 244, 246, 0.425);
-    height: fit-content;
-    border: 1px solid #ebe6e698;
-    border-radius: 0.6rem;
-}
-.profileCard:hover{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-.profileCard span{
-
-    display: flex;
-    align-items: center;
-    gap: 10px;    
-    margin-bottom: 10px;
-}
-.profileCard span h5{
-    font-size: 1rem;
-    margin: 0;
-    color: rgb(45, 58, 69);
-    font-weight: 500;
-    
-}
-.profileCard span p{
-    margin: 0;
-    color: rgb(81, 108, 132);
+.profileCard {
+  width: 260px;
+  flex-shrink: 0;
+  padding: var(--space-xl);
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--space-xl));
+  height: fit-content;
 }
 
-.profileOrders-container{
-    width: 75%;
-    height: fit-content;
-
+.profileCard:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
 }
 
-.profileOrders-container h3{
-
-    font-size: 1.5rem;
-    margin: 2vh 3vw;
-    color: rgb(84, 109, 130);
-
+.profileCard span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
 }
 
-.profileOrders{
-    height: 70vh;
-    margin: 2vh 2vw;
-    padding: 2vh 1.5vw;
-    overflow-y: scroll;
-    display: flex;
+.profileCard span h5 {
+  font-size: 0.95rem;
+  margin: 0;
+  color: var(--text-primary);
+  font-weight: 600;
+  font-family: var(--font-heading);
+}
+
+.profileCard span p {
+  margin: 0;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+}
+
+/* Orders Section */
+.profileOrders-container {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileOrders-container h3 {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 var(--space-lg);
+  color: var(--text-primary);
+}
+
+.profileOrders {
+  max-height: 72vh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding-right: var(--space-sm);
+}
+
+.profileOrder {
+  display: flex;
+  gap: var(--space-xl);
+  background: var(--bg-card);
+  padding: var(--space-xl);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.profileOrder:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
+}
+
+.profileOrder img {
+  height: 160px;
+  width: 200px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.profileOrder-data {
+  flex: 1;
+  min-width: 0;
+}
+
+.profileOrder-data h4 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  margin: 0 0 10px;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.profileOrder-data ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.profileOrder-data ul li {
+  margin: 0 0 6px;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.profileOrder-data div {
+  display: flex;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.profileOrder-data div span p {
+  font-size: 0.82rem;
+  margin-bottom: 8px;
+  color: var(--text-secondary);
+}
+
+.profileOrder-data div span p b {
+  color: var(--text-muted);
+}
+
+.profileOrder-data div span h5 {
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: var(--space-md);
+  font-weight: 500;
+}
+
+.profileOrder-data div span h5 b {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* Rating Stars */
+.rating-stars {
+  display: flex;
+  gap: 10px !important;
+}
+
+.rating-star-icons {
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.rating-star-icons:hover {
+  transform: scale(1.15);
+}
+
+.star-rated {
+  color: #f59e0b;
+  filter: drop-shadow(0 0 4px rgba(245, 158, 11, 0.4));
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .profilePage {
     flex-direction: column;
-    gap: 15px;
-}
-
-.profileOrder{
-
+  }
+  .profileCard {
+    width: 100%;
+    position: static;
     display: flex;
-    gap: 30px;
-    background-color: rgba(235, 241, 241, 0.354);
-    padding: 3vh;
-    border: 1px solid #e8e3e397;
-    border-radius: 0.8rem;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
 }
 
-.profileOrder:hover{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-}
-
-.profileOrder img{
-
-    height: 25vh;
-    width: 17vw;
-    border-radius: 0.3rem;
-}
-
-.profileOrder-data{
-
-    width: 90%;
-}
-
-.profileOrder-data h4{
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    color: rgb(51, 83, 111);
-}
-
-.profileOrder-data ul{
-    display: grid;
-    grid-template-columns: auto auto auto;
-    margin-bottom: 10px;
-}
-
-.profileOrder-data ul li{
-
-    margin: 0;
-    font-size: 0.8rem;
-    margin-bottom: 5px;
-    color: rgb(131, 136, 141);
-}
-
-
-
-.profileOrder-data div{
-
-    display: flex;
-    gap: 20px;
-}
-
-
-.profileOrder-data div span p{
-    font-size: 0.8rem;
-    margin-bottom: 10px;
-}
-.profileOrder-data div span p b{
-
-    color: rgb(114, 129, 143);
-}
-
-.profileOrder-data div span h5{
-    
-    font-size: 1rem;
-    color: rgb(89, 98, 105);
-    margin-bottom: 20px;
-
-}
-
-.profileOrder-data div span h5 b{
-    
-    color: rgb(46, 73, 98);
-}
-
-.rating-stars{
-    display: flex;
-    gap: 15px !important;
-}
-
-.rating-star-icons{
-    font-size: 1.2rem;
-}
-.star-rated{
-    color: rgb(255, 165, 40);
+@media (max-width: 768px) {
+  .profilePage {
+    margin-top: calc(60px + var(--space-lg));
+    padding: 0 var(--space-md);
+  }
+  .profileOrder {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .profileOrder img {
+    width: 100%;
+    height: 180px;
+  }
 }

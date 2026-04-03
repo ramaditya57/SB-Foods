@@ -121,6 +121,7 @@ const Admin = () => {
       
 
 
+      <div className="admin-bottom-cards">
           <div className="admin-promotions-input">
             <h5>Popular Restaurants(promotions)</h5>
             <div className="promotion-restaurant-list">
@@ -129,8 +130,8 @@ const Admin = () => {
                 return(
 
                   <div className="form-check" key={restaurant._id}>
-                    <input className="form-check-input" type="checkbox" value={restaurant._id} checked={promoteList.includes(restaurant._id)} id="promotionRestaurantCheck1" onChange={handlePromoteCheckBox} />
-                    <label className="form-check-label" htmlFor="promotionRestaurantCheck1">
+                    <input className="form-check-input" type="checkbox" value={restaurant._id} checked={promoteList.includes(restaurant._id)} id={restaurant._id} onChange={handlePromoteCheckBox} />
+                    <label className="form-check-label" htmlFor={restaurant._id}>
                       {restaurant.title}
                     </label>
                   </div>
@@ -162,8 +163,8 @@ const Admin = () => {
                       <p>{user.username}</p>
                     </span>
                     <div>
-                      <button className="btn btn-outline-primary" onClick={()=> approveUser(user._id)}>Approve</button>
-                      <button className="btn btn-outline-danger" onClick={()=> rejectUser(user._id)}>Reject</button>
+                      <button className="btn btn-primary btn-sm" onClick={()=> approveUser(user._id)}>Approve</button>
+                      <button className="btn btn-outline-danger btn-sm" onClick={()=> rejectUser(user._id)}>Reject</button>
                     </div>
                   </div>
                 )
@@ -175,6 +176,7 @@ const Admin = () => {
               
             </div>
           </div>
+      </div>
       
     </div>
   )

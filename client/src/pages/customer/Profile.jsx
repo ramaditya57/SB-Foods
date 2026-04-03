@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useCallback } from 'react'
 import '../../styles/Profile.css'
-import {AiFillStar} from 'react-icons/ai' 
 import { GeneralContext } from '../../context/GeneralContext'
 import axios from 'axios'
+import useScrollReveal from '../../hooks/useScrollReveal'
+import Toast from '../../components/Toast'
 
 const Profile = () => {
 
@@ -14,31 +15,40 @@ const Profile = () => {
 
   const [orders, setOrders] = useState([]);
 
-  useEffect(()=>{
-    fetchOrders();
-  },[])
+  // Toast state
+  const [toast, setToast] = useState({ show: false, message: '', type: 'success' });
+  const showToast = (message, type = 'success') => setToast({ show: true, message, type });
+  const hideToast = useCallback(() => setToast(prev => ({ ...prev, show: false })), []);
 
-  const fetchOrders = async() =>{
+  useScrollReveal();
+
+  const fetchOrders = useCallback(async() =>{
     await axios.get('https://sb-foods-1.onrender.com/fetch-orders').then(
       (response)=>{
         setOrders(response.data.filter(order=> order.userId === userId).reverse());
       }
     )
-  }
+  }, [userId]);
+
+  useEffect(()=>{
+    fetchOrders();
+  },[fetchOrders])
 
   const cancelOrder = async(id) =>{
     await axios.put('https://sb-foods-1.onrender.com/cancel-order', {id}).then(
       (response)=>{
-        alert('order cancelled!!');
+        showToast('Order cancelled successfully', 'info');
         fetchOrders();
       }
-    )
+    ).catch(() => {
+      showToast('Failed to cancel order', 'error');
+    });
   }
 
   return ( 
-    <div className="profilePage">
+    <div className="profilePage page-enter">
       
-      <div className="profileCard">
+      <div className="profileCard" data-reveal="fade-right">
 
           <span>
             <h5>Username: </h5>
@@ -57,13 +67,28 @@ const Profile = () => {
       </div>
 
       <div className="profileOrders-container">
-        <h3>Orders</h3>
+        <div className="section-header" data-reveal="fade-up">
+          <h3>Your Orders</h3>
+        </div>
         <div className="profileOrders">
 
-          {orders.map((order)=>(
+          {orders.length === 0 ? (
+            <div className="empty-state">
+              <div className="empty-state-icon">📦</div>
+              <h4>No orders yet</h4>
+              <p>Your order history will appear here once you start ordering</p>
+            </div>
+          ) : null}
 
-            <div className="profileOrder" key={order._id}>
-              <img src={order.foodItemImg} alt="" />
+          {orders.map((order, index) => (
+
+            <div
+              className="profileOrder"
+              key={order._id}
+              data-reveal="fade-up"
+              data-reveal-delay={index * 80}
+            >
+              <img src={order.foodItemImg} alt={order.foodItemName} />
               <div className="profileOrder-data">
                 <h4>{order.foodItemName}</h4>
                 <p>{order.restaurantName}</p>
@@ -74,7 +99,7 @@ const Profile = () => {
                 </div>
                 <div>
                   <span><p><b>Ordered on: </b> {order.orderDate.slice(0,10)} Time: {order.orderDate.slice(11,16)}</p></span>
-                  <span><p><b>status: </b> {order.orderStatus}</p></span>
+                  <span><p><b>Status: </b> {order.orderStatus}</p></span>
                 </div>
                 {order.orderStatus === 'order placed' || order.orderStatus === 'In-transit' ?
                   <button className="btn btn-outline-danger" onClick={()=> cancelOrder(order._id)}>Cancel</button>
@@ -84,12 +109,10 @@ const Profile = () => {
             </div>
           ))}
 
-
-            
-
         </div>
       </div>
 
+      <Toast show={toast.show} message={toast.message} type={toast.type} onClose={hideToast} />
     </div>
   )
 }

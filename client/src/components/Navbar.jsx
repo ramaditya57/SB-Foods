@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState, useRef } from 'react'
 import { BsCart3, BsPersonCircle } from 'react-icons/bs'
 import { FcSearch } from 'react-icons/fc'
 import { useNavigate } from 'react-router-dom'
@@ -17,6 +17,29 @@ const Navbar = () => {
   const [noResult, setNoResult] = useState(false);
   const [categories, setCategories] = useState([]);
   const [isSearchFocused, setIsSearchFocused] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [cartBounce, setCartBounce] = useState(false);
+  const prevCartCount = useRef(cartCount);
+
+  // Scroll shadow effect
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Cart bounce animation when count changes
+  useEffect(() => {
+    if (cartCount !== prevCartCount.current && cartCount > 0) {
+      setCartBounce(true);
+      const timer = setTimeout(() => setCartBounce(false), 500);
+      prevCartCount.current = cartCount;
+      return () => clearTimeout(timer);
+    }
+    prevCartCount.current = cartCount;
+  }, [cartCount]);
 
   useEffect(() => {
     fetchData();
@@ -49,7 +72,7 @@ const Navbar = () => {
   }
 
   const renderUserNavbar = () => (
-    <div className="navbar">
+    <div className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-brand" onClick={() => navigate('')}>
         <img src={logoImg} alt="SB Foods Logo" className="navbar-logo" />
         <h3>SB Foods</h3>
@@ -91,7 +114,11 @@ const Navbar = () => {
             </div>
             <div className="nav-cart" onClick={() => navigate('/cart')}>
               <BsCart3 className='navbar-icons' title="Cart" />
-              {cartCount > 0 && <div className="cart-count">{cartCount}</div>}
+              {cartCount > 0 && (
+                <div className={`cart-count ${cartBounce ? 'bounce' : ''}`}>
+                  {cartCount}
+                </div>
+              )}
             </div>
           </div>
         ) : null}
@@ -100,7 +127,7 @@ const Navbar = () => {
   );
 
   const renderAdminNavbar = () => (
-    <div className="navbar-admin">
+    <div className={`navbar-admin ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-brand" onClick={() => navigate('/admin')}>
         <img src={logoImg} alt="SB Foods Logo" className="navbar-logo-admin" />
         <h3>SB Foods (Admin)</h3>
@@ -117,7 +144,7 @@ const Navbar = () => {
   );
 
   const renderRestaurantNavbar = () => (
-    <div className="navbar-admin">
+    <div className={`navbar-admin ${isScrolled ? 'scrolled' : ''}`}>
       <div className="navbar-brand" onClick={() => navigate('/restaurant')}>
         <img src={logoImg} alt="SB Foods Logo" className="navbar-logo-admin" />
         <h3>SB Foods (Restaurant)</h3>

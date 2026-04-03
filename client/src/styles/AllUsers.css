@@ -1,202 +1,277 @@
-.all-users-page{
-    background-color: #30373f;
-    height: 100vh;
-    width: 100%;
-    padding: 15vh 3vw 3vh 3vw;
+/* ============================================
+   All Users (Admin) — Soft Slate Light Theme
+   ============================================ */
+
+.all-users-page {
+  background: var(--bg-admin);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.04) 0px, transparent 50%);
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--navbar-height) + var(--space-2xl)) var(--content-padding) var(--space-2xl);
 }
 
-.all-users-page h3{
-
-    color: aliceblue;
+.all-users-page h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: var(--admin-text);
 }
 
-.user-cards{
-    margin-top: 4vh;
-    height: 70vh;
-    width: 70vw;
-    padding: 2vh 1vw;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-.user-card{
-
-    color: aliceblue;
-    display: flex;
-    gap: 40px;
-    background-color: #181818;
-    padding: 3vh 2vw;
-    width: 65vw;
-    border-radius: 0.8rem;
-}
-
-.user-card span{
-
-
-}
-
-.user-card span h5{
-
-    font-weight: 400;
-    color: rgb(231, 234, 238);
-}
-
-.user-card span p{
-    color: rgba(231, 234, 238, 0.831);
-    margin: 0;
-}
-
-/* Add these styles to your AllUsers.css file */
-
+/* Header Section */
 .header-section {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .add-user-btn {
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .add-user-btn:hover {
-    background-color: #45a049;
-  }
-  
-  .add-user-form {
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .add-user-form h4 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #333;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-  }
-  
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  .submit-btn {
-    background-color: #2196F3;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .submit-btn:hover {
-    background-color: #0b7dda;
-  }
-  
-  .user-actions {
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-end;
-  }
-  
-  .delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 12px;
-  }
-  
-  .delete-btn:hover {
-    background-color: #d32f2f;
-  }
-  
-  .error-message {
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-  }
-  
-  .success-message {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-  }
-  
-  .user-card {
-    position: relative;
-  }
-  /* Add this to your AllUsers.css file */
-.loading-message {
-    background-color: #e3f2fd;
-    color: #0d47a1;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
-  }
-  
-  button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+}
 
-  /* Add this to your AllUsers.css file */
+.add-user-btn {
+  background: var(--primary);
+  color: var(--text-inverse);
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  box-shadow: 0 4px 12px var(--primary-glow);
+  font-family: var(--font-body);
+}
+
+.add-user-btn:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* User Cards Container */
+.user-cards {
+  margin-top: var(--space-xl);
+  max-height: 70vh;
+  width: 100%;
+  padding: var(--space-sm);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-subtle);
+}
+
+.user-cards::-webkit-scrollbar {
+  width: 5px;
+}
+
+.user-cards::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+  border-radius: 10px;
+}
+
+.user-cards::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+/* Individual User Card */
+.user-card {
+  color: var(--admin-text);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--bg-admin-card);
+  padding: var(--space-lg) var(--space-xl);
+  width: 100%;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+  position: relative;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.user-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+.user-card span h5 {
+  font-weight: 600;
+  font-size: 0.78rem;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0 0 4px;
+  font-family: var(--font-heading);
+}
+
+.user-card span p {
+  color: var(--admin-text);
+  margin: 0;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+.status-approved {
+  color: var(--success) !important;
+  font-weight: 600;
+}
+
+.status-pending {
+  color: var(--warning) !important;
+  font-weight: 600;
+}
+
+/* Add User Form */
+.add-user-form {
+  background: var(--bg-admin-card);
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  color: var(--admin-text);
+}
+
+.add-user-form h4 {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
+  font-family: var(--font-heading);
+  color: var(--admin-text);
+  font-weight: 600;
+}
+
+.form-group {
+  margin-bottom: var(--space-md);
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--admin-text-secondary);
+  font-size: 0.85rem;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1.5px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  box-sizing: border-box;
+  background: var(--bg-subtle);
+  color: var(--admin-text);
+  font-family: var(--font-body);
+  transition: var(--transition-fast);
+  outline: none;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-glow);
+}
+
+.submit-btn {
+  background: var(--primary);
+  color: var(--text-inverse);
+  border: none;
+  padding: 10px 24px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  font-family: var(--font-body);
+}
+
+.submit-btn:hover {
+  background: var(--primary-hover);
+  box-shadow: var(--shadow-glow);
+}
+
+/* User Actions */
+.user-actions {
+  margin-top: var(--space-sm);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-btn {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(244, 63, 94, 0.2);
+  padding: 7px 18px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-weight: 600;
+  transition: var(--transition-normal);
+  font-family: var(--font-body);
+}
+
+.delete-btn:hover {
+  background: var(--accent);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-accent-glow);
+}
+
+/* Messages */
 .error-message {
-    background-color: #ffebee;
-    color: #c62828;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border: 1px solid #fecaca;
+  font-size: 0.9rem;
+}
+
+.success-message {
+  background: #ecfdf5;
+  color: #059669;
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border: 1px solid #a7f3d0;
+  font-size: 0.9rem;
+}
+
+.loading-message {
+  background: var(--primary-light);
+  color: var(--primary);
+  padding: 12px var(--space-md);
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-md);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  font-size: 0.9rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .all-users-page {
+    padding-top: calc(60px + var(--space-xl));
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
   }
-  
-  .success-message {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
+  .user-card {
+    flex-direction: column;
+    gap: var(--space-sm);
+    padding: var(--space-md);
   }
-  
-  .loading-message {
-    background-color: #e3f2fd;
-    color: #0d47a1;
-    padding: 10px;
-    border-radius: 4px;
-    margin-bottom: 15px;
+  .header-section {
+    flex-direction: column;
+    gap: var(--space-md);
+    align-items: flex-start;
   }
-  
-  button:disabled {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+}

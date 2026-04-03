@@ -1,148 +1,325 @@
-.admin-page{
-    background-color: #30373f;
-    height: 100vh;
-    width: 100%;
-    padding-top: 15vh;
-    display: grid;
-    grid-template-columns: 33% 33% 33%;
+/* ============================================
+   Admin Dashboard — Soft Slate Light Theme
+   ============================================ */
+
+.admin-page {
+  background: var(--bg-admin);
+  background-image:
+    radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.06) 0px, transparent 50%),
+    radial-gradient(at 100% 0%, rgba(244, 63, 94, 0.04) 0px, transparent 50%);
+  min-height: 100vh;
+  width: 100%;
+  padding: calc(var(--navbar-height) + var(--space-2xl)) var(--content-padding) var(--space-2xl);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+  box-sizing: border-box;
+  align-items: start;
 }
 
-.admin-bottom-cards{
-
-    display: flex;
+.admin-bottom-cards {
+  grid-column: span 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+  margin-top: var(--space-lg);
 }
 
-
-.admin-home-card{
-    color: rgb(193, 199, 205);
-    text-align: center;
-    background-color: #181818;
-    width: 70%;
-    margin-left: 15%;
-    padding: 4vh 2vw;
-    border-radius: 0.8rem;
-    border: 1px solid #4e4c4cc7;
-}
-.admin-home-card:hover{
-    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+.admin-home-card {
+  color: var(--admin-text);
+  text-align: center;
+  background: var(--bg-admin-card);
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
 }
 
-
-
-.admin-home-card button{
-
-    border: 1.5px solid #f08329df;
-    background-color: #30373f00;
-    color: #f08329df;
-    padding: 5px 25px;
-    border-radius: 0.5rem;
+.admin-home-card:hover {
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-6px);
 }
 
-.admin-home-card button:hover{
-    background-color: #f08329df;
-    color: aliceblue;
-    padding: 5px 25px;
-    border-radius: 0.5rem;
+.admin-home-card h5 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--admin-text);
+  margin-bottom: var(--space-sm);
 }
 
-.admin-promotions-input{
-
-    width: 42vw !important;
-    padding: 4vh 3vw 0vh 3vw !important;
-    height: 40vh;
-    color: rgb(193, 199, 205);
-    text-align: center;
-    background-color: #181818;
-    margin-left: 15%;
-    border-radius: 0.8rem;
-    border: 1px solid #4e4c4cc7
-}
-.admin-promotions-input h5{
-
-    margin-bottom: 20px;
-}
-.admin-promotions-input .promotion-restaurant-list{
-    width: 100%;
-    height: 20vh;
-    overflow-y: scroll;
-}
-.admin-promotions-input .promotion-restaurant-list div{
-    display: flex;
-    gap: 30px;
-}
-.admin-promotions-input button{
-
-    border: 1.5px solid #f08329df;
-    background-color: #30373f00;
-    color: #f08329df;
-    padding: 5px 25px;
-    border-radius: 0.5rem;
+.admin-home-card p {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin: var(--space-md) 0;
 }
 
-.admin-promotions-input button:hover{
-    background-color: #f08329df;
-    color: aliceblue;
-    padding: 5px 25px;
-    border-radius: 0.5rem;
+.admin-home-card button {
+  border: 1.5px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  padding: 8px 24px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
 }
 
-
-
-.admin-approval-container{
-
-    position: absolute;
-    top: 50%;
-    left: 53.7%;
-    margin-left: 0 !important;
-    width: 42vw !important;
-    padding: 4vh 3vw 3vh 3vw !important;
-    height: fit-content;
-    color: rgb(193, 199, 205);
-    text-align: center;
-    background-color: #181818;
-    margin-left: 15%;
-    border-radius: 0.8rem;
-    border: 1px solid #4e4c4cc7
+.admin-home-card button:hover {
+  background: var(--primary);
+  color: var(--text-inverse);
+  box-shadow: var(--shadow-glow);
+  transform: translateY(-2px);
 }
 
-.admin-approval-container .approval-restaurant-list{
-    height: 30vh;
-    overflow-y: scroll;
-    padding: 3vh 0;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+/* Promotions Card */
+.admin-promotions-input {
+  background: var(--bg-admin-card);
+  padding: var(--space-xl);
+  min-height: 400px;
+  color: var(--admin-text);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
 }
 
-.admin-approval-container .approval-restaurant-list .approval-request{
-    display: flex;   
-    justify-content: space-between;
-    margin-right: 20px ;
-    background-color: #9fabb82e;
-    padding: 15px;
-    border-radius: 0.5rem;
-    align-items: center;
+.admin-promotions-input:hover {
+  box-shadow: var(--shadow-md);
 }
-.approval-request span{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-    
+
+.admin-promotions-input h5 {
+  margin-bottom: var(--space-lg);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--admin-text);
 }
+
+.admin-promotions-input .promotion-restaurant-list {
+  width: 100%;
+  height: 20vh;
+  overflow-y: auto;
+}
+
+.admin-promotions-input .promotion-restaurant-list div {
+  display: flex;
+  gap: var(--space-xl);
+}
+
+.admin-promotions-input button {
+  margin-top: var(--space-lg);
+  border: none;
+  background: var(--primary);
+  color: var(--text-inverse);
+  padding: 10px 28px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  transition: var(--transition-normal);
+  box-shadow: 0 4px 12px var(--primary-glow);
+  cursor: pointer;
+  font-family: var(--font-body);
+}
+
+.admin-promotions-input button:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-glow);
+}
+
+/* Approval Container */
+.admin-approval-container {
+  background: var(--bg-admin-card);
+  padding: var(--space-xl);
+  min-height: 400px;
+  color: var(--admin-text);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-normal);
+}
+
+.admin-approval-container:hover {
+  box-shadow: var(--shadow-md);
+}
+
+.admin-approval-container h5 {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.admin-approval-container .approval-restaurant-list {
+  height: 30vh;
+  overflow-y: auto;
+  padding: var(--space-lg) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.admin-approval-container .approval-restaurant-list .approval-request {
+  display: flex;
+  justify-content: space-between;
+  background: var(--bg-subtle);
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  align-items: center;
+  border: 1px solid var(--border-light);
+  transition: var(--transition-fast);
+}
+
+.approval-request:hover {
+  background: var(--primary-light);
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+.approval-request span {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.approval-request span h6 {
+  color: var(--admin-text);
+  font-family: var(--font-heading);
+}
+
+.approval-request span p {
+  color: var(--admin-text-secondary);
+  font-size: 0.85rem;
+}
+
 .approval-request div {
-    display: flex;
-    gap: 20px;
-}
-.approval-request div button{
-    font-size: 0.8rem;
+  display: flex;
+  gap: var(--space-md);
 }
 
-.approval-request span h5{
-    margin: 0;
-    font-size: 0.8rem;
-    color: rgba(240, 248, 255, 0.55);
+.approval-request div button {
+  font-size: 0.82rem;
 }
-.approval-request span p{
-    margin: 0;
-    font-size: 1rem;
+
+/* Custom Scrollbars for admin */
+.admin-promotions-input .promotion-restaurant-list,
+.admin-approval-container .approval-restaurant-list {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--bg-subtle);
+}
+
+.promotion-restaurant-list::-webkit-scrollbar,
+.approval-restaurant-list::-webkit-scrollbar,
+.admin-restaurants-grid::-webkit-scrollbar {
+  width: 5px;
+}
+
+.promotion-restaurant-list::-webkit-scrollbar-track,
+.approval-restaurant-list::-webkit-scrollbar-track,
+.admin-restaurants-grid::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+  border-radius: 10px;
+}
+
+.promotion-restaurant-list::-webkit-scrollbar-thumb,
+.approval-restaurant-list::-webkit-scrollbar-thumb,
+.admin-restaurants-grid::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+/* All Restaurants Admin Page */
+.all-restaurants-admin {
+  display: block !important;
+}
+
+.admin-content-header h3 {
+  color: var(--admin-text);
+  margin-bottom: var(--space-2xl);
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+}
+
+.admin-restaurants-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-xl);
+  width: 100%;
+}
+
+.restaurant-card-modern {
+  background: var(--bg-admin-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-light);
+  overflow: hidden;
+  transition: var(--transition-normal);
+  box-shadow: var(--shadow-sm);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.restaurant-card-modern:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-glow);
+  border-color: rgba(99, 102, 241, 0.15);
+}
+
+.restaurant-image-container {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.restaurant-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.restaurant-card-modern:hover img {
+  transform: scale(1.08);
+}
+
+.restaurant-details {
+  padding: var(--space-lg);
+  text-align: center;
+}
+
+.restaurant-details h6 {
+  margin: 0 0 var(--space-sm);
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--admin-text);
+}
+
+.restaurant-details p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--admin-text-secondary);
+  line-height: 1.4;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .admin-page {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .admin-bottom-cards {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-page {
+    grid-template-columns: 1fr;
+    padding-top: calc(60px + var(--space-xl));
+  }
+  .admin-bottom-cards {
+    grid-column: span 1;
+    grid-template-columns: 1fr;
+  }
 }

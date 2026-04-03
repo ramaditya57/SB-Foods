@@ -1,46 +1,85 @@
-.Footer{
+/* ============================================
+   Footer — Futuristic Light Theme
+   ============================================ */
 
-    background-color: #202226;
-    color: rgb(227, 230, 232);
-    padding: 3vh 3vw;
-    margin-top: 3vh;
-
-}
-.Footer h4{
-
-    margin-left: 2vw;
-}
-
-.footer-body{
-    display: flex;
-    justify-content: space-evenly;
-    gap: 10vw;
-    margin-bottom: 3vh;
-    margin-top: 3vh;
+.Footer {
+  background: linear-gradient(180deg, var(--bg-subtle), #e8ecf4);
+  color: var(--text-secondary);
+  padding: var(--space-2xl) var(--content-padding) var(--space-xl);
+  margin-top: var(--space-2xl);
+  border-top: 1px solid var(--border-light);
+  position: relative;
 }
 
-.footer-body ul{
-
-    
+.Footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--primary), var(--accent), var(--primary));
 }
 
-.footer-body ul li{
-    list-style: none;
-    color: rgb(199, 200, 202); 
-    cursor: pointer;
+.Footer h4 {
+  margin: 0 0 var(--space-lg);
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--text-primary);
 }
 
-.footer-body ul li:hover{
-    list-style: none;
-    color: aliceblue; 
+.footer-body {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-xl);
 }
-.footer-bottom{
 
-
+.footer-body ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
 }
 
-.footer-bottom p{
-    text-align: center;
-    color: rgb(193, 196, 198);
-    margin: 0;
+.footer-body ul li {
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: 4px 0;
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.footer-body ul li:hover {
+  color: var(--primary);
+  transform: translateX(4px);
+}
+
+.footer-bottom {
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-md);
+}
+
+.footer-bottom p {
+  text-align: center;
+  color: var(--text-muted);
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .footer-body {
+    gap: var(--space-lg);
+  }
+  .Footer {
+    padding: var(--space-xl) var(--space-md) var(--space-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-body {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
 }
