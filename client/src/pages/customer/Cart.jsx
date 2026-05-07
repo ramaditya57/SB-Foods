@@ -23,7 +23,7 @@ const Cart = () => {
   useScrollReveal();
 
   const fetchCart = useCallback(async() =>{
-    await axios.get('https://sb-foods-1.onrender.com/fetch-cart').then(
+    await axios.get('https://sb-foods-5t36.onrender.com/fetch-cart').then(
       (response)=>{
         setCart(response.data.filter(item=> item.userId === userId));
       }
@@ -31,7 +31,7 @@ const Cart = () => {
   }, [userId]);
 
   const removeCartItem = async(id) =>{
-    await axios.put('https://sb-foods-1.onrender.com/remove-item', {id}).then(
+    await axios.put('https://sb-foods-5t36.onrender.com/remove-item', {id}).then(
       (response)=>{
         fetchCart();
         fetchCartCount();
@@ -73,7 +73,7 @@ const Cart = () => {
 
   const placeOrder = async() =>{
     if(cart.length > 0){
-        await axios.post('https://sb-foods-1.onrender.com/place-cart-order', {userId, name, mobile, email, address, pincode, paymentMethod, orderDate: new Date()}).then(
+        await axios.post('https://sb-foods-5t36.onrender.com/place-cart-order', {userId, name, mobile, email, address, pincode, paymentMethod, orderDate: new Date()}).then(
           (response)=>{
             showToast('Order placed successfully! 🎉', 'success');
             setName('');

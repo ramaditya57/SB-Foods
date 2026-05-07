@@ -23,7 +23,7 @@ const Profile = () => {
   useScrollReveal();
 
   const fetchOrders = useCallback(async() =>{
-    await axios.get('https://sb-foods-1.onrender.com/fetch-orders').then(
+    await axios.get('https://sb-foods-5t36.onrender.com/fetch-orders').then(
       (response)=>{
         setOrders(response.data.filter(order=> order.userId === userId).reverse());
       }
@@ -35,7 +35,7 @@ const Profile = () => {
   },[fetchOrders])
 
   const cancelOrder = async(id) =>{
-    await axios.put('https://sb-foods-1.onrender.com/cancel-order', {id}).then(
+    await axios.put('https://sb-foods-5t36.onrender.com/cancel-order', {id}).then(
       (response)=>{
         showToast('Order cancelled successfully', 'info');
         fetchOrders();

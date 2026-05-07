@@ -19,7 +19,7 @@ const Home = () => {
 
   const fetchRestaurants = async() => {
     try {
-      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-restaurants');
+      const response = await axios.get('https://sb-foods-5t36.onrender.com/fetch-restaurants');
       setRestaurants(response.data);
     } catch (error) {
       console.error("Error fetching restaurants:", error);

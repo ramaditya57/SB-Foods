@@ -47,7 +47,7 @@ const Navbar = () => {
 
   const fetchData = async() => {
     try {
-      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-categories');
+      const response = await axios.get('https://sb-foods-5t36.onrender.com/fetch-categories');
       setCategories(response.data);
     } catch (error) {
       console.error('Error fetching categories:', error);

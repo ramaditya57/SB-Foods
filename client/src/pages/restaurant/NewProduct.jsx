@@ -39,7 +39,7 @@ const NewProduct = () => {
     const defaults = availableMenuCategories;
     setAvailableMenuCategories(defaults);
     try {
-      const { data } = await axios.get('https://sb-foods-1.onrender.com/fetch-categories');
+      const { data } = await axios.get('https://sb-foods-5t36.onrender.com/fetch-categories');
       const filtered = data.filter(cat => !availableCuisines.includes(cat));
       setAvailableMenuCategories([...new Set([...defaults, ...filtered])]);
     } catch {
@@ -49,7 +49,7 @@ const NewProduct = () => {
 
   const fetchCuisines = async () => {
     try {
-      const { data } = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
+      const { data } = await axios.get('https://sb-foods-5t36.onrender.com/fetch-cuisines');
       setAvailableCuisines(data);
     } catch {
       // fallback
@@ -58,7 +58,7 @@ const NewProduct = () => {
 
   const fetchRestaurant = async () => {
     try {
-      const { data } = await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant-details/${userId}`);
+      const { data } = await axios.get(`https://sb-foods-5t36.onrender.com/fetch-restaurant-details/${userId}`);
       setRestaurant(data);
     } catch (err) {
       console.error(err);
@@ -85,7 +85,7 @@ const NewProduct = () => {
         : productMenuCategory;
 
     try {
-      await axios.post('https://sb-foods-1.onrender.com/add-new-product', {
+      await axios.post('https://sb-foods-5t36.onrender.com/add-new-product', {
         restaurantId: restaurant._id,
         productName,
         productDescription,

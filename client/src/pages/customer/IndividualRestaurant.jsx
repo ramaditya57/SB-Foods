@@ -39,7 +39,7 @@ const IndividualRestaurant = () => {
   }, [id]);
 
   const fetchRestaurants = async() => {
-    await axios.get(`https://sb-foods-1.onrender.com/fetch-restaurant/${id}`).then(
+    await axios.get(`https://sb-foods-5t36.onrender.com/fetch-restaurant/${id}`).then(
       (response) => {
         setRestaurant(response.data);
       }
@@ -50,7 +50,7 @@ const IndividualRestaurant = () => {
 
   const fetchMenuCategories = async() => {
     try {
-      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-menu-categories');
+      const response = await axios.get('https://sb-foods-5t36.onrender.com/fetch-menu-categories');
       setMenuCategories(response.data);
     } catch (err) {
       console.log("Error fetching menu categories, will extract from items:", err);
@@ -59,7 +59,7 @@ const IndividualRestaurant = () => {
 
   const fetchCuisines = async() => {
     try {
-      const response = await axios.get('https://sb-foods-1.onrender.com/fetch-cuisines');
+      const response = await axios.get('https://sb-foods-5t36.onrender.com/fetch-cuisines');
       setCuisines(response.data);
     } catch (err) {
       console.log("Error fetching cuisines, will extract from items:", err);
@@ -67,7 +67,7 @@ const IndividualRestaurant = () => {
   };
 
   const fetchItems = async() => {
-    await axios.get(`https://sb-foods-1.onrender.com/fetch-items`).then(
+    await axios.get(`https://sb-foods-5t36.onrender.com/fetch-items`).then(
       (response) => {
         const allItems = response.data;
         setItems(allItems);
@@ -164,7 +164,7 @@ const IndividualRestaurant = () => {
   const [quantity, setQuantity] = useState(1);
 
   const handleAddToCart = async(foodItemId, foodItemName, restaurantId, foodItemImg, price, discount) => {
-    await axios.post('https://sb-foods-1.onrender.com/add-to-cart', {
+    await axios.post('https://sb-foods-5t36.onrender.com/add-to-cart', {
       userId, foodItemId, foodItemName, restaurantId, foodItemImg, price, discount, quantity
     }).then((response) => {
       showToast(`${foodItemName} added to cart!`, 'success');

@@ -16,7 +16,7 @@ const PopularRestaurants = () => {
       }, [])
 
     const fetchRestaurants = async() =>{
-        await axios.get('https://sb-foods-1.onrender.com/fetch-restaurants').then(
+        await axios.get('https://sb-foods-5t36.onrender.com/fetch-restaurants').then(
           (response)=>{
             setRestaurants(response.data);
           }
@@ -24,7 +24,7 @@ const PopularRestaurants = () => {
       }
 
       const fetchPromotions = async () =>{
-        await axios.get('https://sb-foods-1.onrender.com/fetch-promoted-list').then(
+        await axios.get('https://sb-foods-5t36.onrender.com/fetch-promoted-list').then(
           (response)=>{
             setPromoteList(response.data);
           }
